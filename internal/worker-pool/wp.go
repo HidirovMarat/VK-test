@@ -9,15 +9,15 @@ import (
 type WP struct {
 	data    <-chan string
 	signals []chan struct{}
-	work    func(n int, chRead <-chan string)
+	job    func(n int, chRead <-chan string)
 	wg      sync.WaitGroup
 }
 
-func NewWP(data <-chan string, countWork int, work func(n int, chRead <-chan string)) *WP {
+func NewWP(data <-chan string, countWork int, job func(n int, chRead <-chan string)) *WP {
 	return &WP{
 		data:    data,
 		signals: make([]chan struct{}, 0, countWork),
-		work:    work,
+		job:    job,
 	}
 }
 
@@ -40,7 +40,7 @@ func (wp *WP) Add(delta int) {
 				default:
 					{
 						time.Sleep(1 * time.Second)
-						wp.work(n, wp.data)
+						wp.job(n, wp.data)
 					}
 				}
 			}
@@ -72,8 +72,8 @@ func (wp *WP) Done(subtract int) {
 	wp.signals = wp.signals[:len(wp.signals)-subtract]
 }
 
-func (wp *WP) SetWork(work func(n int, chRead <-chan string)) {
-	wp.work = work
+func (wp *WP) SetWork(job func(n int, chRead <-chan string)) {
+	wp.job = job
 }
 
 func (wp *WP) Count() int {

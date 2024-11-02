@@ -66,18 +66,17 @@ func PrintData(n int, chRead <-chan string) {
 - Было решено добавить возможность динамической смены job для worker с помощью метода 'SetWork'.
 - Также добавлено возможность смены канала данных динамически.
 
-# Тесты и Бенчмарки
+# Тесты
 Тесты надо закончить
 
-Бенчмарки 
-для Add(100000) & Done(100000)
-================================
-goos: windows
-goarch: amd64
-pkg: testVK/internal/worker-pool
-cpu: Intel(R) Core(TM) i7-10700K CPU @ 3.80GHz
-=== RUN   BenchmarkWP
-BenchmarkWP
-BenchmarkWP-16
+# Бенчмарки 
+для Add(100000) & Done(100000)   
+goos: windows  
+goarch: amd64  
+pkg: testVK/internal/worker-pool  
+cpu: Intel(R) Core(TM) i7-10700K CPU @ 3.80GHz  
+=== RUN   BenchmarkWP  
+BenchmarkWP  
+BenchmarkWP-16  
        1        1274929000 ns/op        146831432 B/op    800316 allocs/op
 

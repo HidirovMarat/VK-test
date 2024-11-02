@@ -32,7 +32,6 @@ func main() {
 			data <- "kk"
 			data <- "ll"
 		}
-		close(data)
 	}()
 
 	wp.SetData(data)

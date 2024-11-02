@@ -9,7 +9,7 @@ import (
 type WP struct {
 	data    <-chan string
 	signals []chan struct{}
-	job    func(n int, chRead <-chan string)
+	job     func(n int, chRead <-chan string)
 	wg      sync.WaitGroup
 }
 
@@ -17,7 +17,7 @@ func NewWP(data <-chan string, countWork int, job func(n int, chRead <-chan stri
 	return &WP{
 		data:    data,
 		signals: make([]chan struct{}, 0, countWork),
-		job:    job,
+		job:     job,
 	}
 }
 

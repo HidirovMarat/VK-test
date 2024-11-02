@@ -119,3 +119,34 @@ func Datas() [][]string {
 
 	return datasJobs
 }
+
+func BenchmarkWP(b *testing.B) {
+	data := make(chan string)
+	go func() {
+		data <- "bechmark"
+	}()
+
+	wp := NewWP(data, 0, JobBechmark)
+	for i := 0; i < b.N; i++ {
+		wp.Add(100000)
+		wp.Done(100000)
+	}
+}
+
+
+func JobBechmark(n int, chRead <-chan string) {
+	select {
+	case _, ok := <-chRead:
+		{
+			if ok {
+				//log.Printf("Number Worker:%v data:%s\n", n, data)
+			} else {
+				return
+			}
+		}
+	default:
+		{
+			return
+		}
+	}
+}
